@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-rourter.get('/', function(req, res) {
+router.get('/', function(req, res) {
   res.redirect('/products')
 });
 

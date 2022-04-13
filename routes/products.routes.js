@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-rourter.get('/products', function(req, res) {
+router.get('/products', function(req, res) {
   res.render('customer/products/all-products')
 });
 
