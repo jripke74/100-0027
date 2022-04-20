@@ -1,10 +1,11 @@
+const req = require('express/lib/request');
 const Product = require('../models/product.model');
 
 async function getProducts(req, res, next) {
   try {
     const products = await Product.findAll();
     res.render('admin/products/all-products', { products: products });
-  } catch(error) {
+  } catch (error) {
     next(error);
     return;
   }
@@ -22,7 +23,7 @@ async function createNewProduct(req, res, next) {
 
   try {
     await product.save();
-  } catch(error) {
+  } catch (error) {
     next(error);
     return;
   }
@@ -39,8 +40,24 @@ async function getUpdateProduct(req, res, next) {
   }
 }
 
-function updateProduct() {
+async function updateProduct(req, res, next) {
+  const product = new Product({
+    ...req.body,
+    _id: req.params.id,
+  });
 
+  if (req.file) {
+    product.replaceImage(req.file.filename);
+  }
+
+  try {
+    await product.save();
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.redirect('/admin/products');
 }
 
 module.exports = {
@@ -49,4 +66,4 @@ module.exports = {
   createNewProduct: createNewProduct,
   getUpdateProduct: getUpdateProduct,
   updateProduct: updateProduct,
-}
+};
