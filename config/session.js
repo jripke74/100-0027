@@ -7,7 +7,7 @@ function createSessionStore() {
   const store = new MongoDBStore({
     uri: 'mongodb://localhost:27017',
     databaseName: 'online-shop',
-    collection: 'session',
+    collection: 'sessions'
   });
 
   return store;
@@ -15,14 +15,13 @@ function createSessionStore() {
 
 function createSessionConfig() {
   return {
-    secret: 'this ino a soper ok sec ok thol kLL',
-    rseave: 'online-store',
+    secret: 'super-secret',
     resave: false,
     saveUninitialized: false,
     store: createSessionStore(),
     cookie: {
-      maxAge: 2 * 24 * 60 * 60 * 1000,
-    },
+      maxAge: 2 * 24 * 60 * 60 * 1000
+    }
   };
 }
 

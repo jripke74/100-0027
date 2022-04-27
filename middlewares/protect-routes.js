@@ -7,7 +7,7 @@ function protectRoutes(req, res, next) {
     return res.redirect('/403');
   }
 
-  next();
+  next();  
 }
 
 module.exports = protectRoutes;

@@ -9,10 +9,10 @@ class User {
     this.name = fullname;
     this.address = {
       street: street,
-      postal: postal,
+      postalCode: postal,
       city: city,
-    }
-  };
+    };
+  }
 
   getUserWithSameEmail() {
     return db.getDb().collection('users').findOne({ email: this.email });
@@ -28,7 +28,7 @@ class User {
 
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
-    
+
     await db.getDb().collection('users').insertOne({
       email: this.email,
       password: hashedPassword,

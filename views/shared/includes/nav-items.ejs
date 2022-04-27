@@ -18,7 +18,7 @@
     <li><a href="/login">Login</a></li>
   <% } %>
 
-  <% if (locals.isAuth) { %> 
+  <% if (locals.isAuth) { %>
     <li>
       <form action="/logout" method="POST">
         <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">

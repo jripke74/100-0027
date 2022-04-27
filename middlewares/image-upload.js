@@ -10,6 +10,6 @@ const upload = multer({
   })
 });
 
-const configureMulterMiddleware = upload.single('image');
+const configuredMulterMiddleware = upload.single('image');
 
-module.exports = configureMulterMiddleware;
+module.exports = configuredMulterMiddleware;

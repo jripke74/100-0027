@@ -1,4 +1,3 @@
-const req = require('express/lib/request');
 const Product = require('../models/product.model');
 
 async function getProducts(req, res, next) {
@@ -61,11 +60,12 @@ async function updateProduct(req, res, next) {
 }
 
 async function deleteProduct(req, res, next) {
+  let product;
   try {
-    const product = await Product.findById(req.params.id);
+    product = await Product.findById(req.params.id);
     await product.remove();
-  } catch(error) {
-    return next();
+  } catch (error) {
+    return next(error);
   }
 
   res.json({ message: 'Deleted product!' });

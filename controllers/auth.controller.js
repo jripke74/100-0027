@@ -47,7 +47,7 @@ async function signup(req, res, next) {
       req,
       {
         errorMessage:
-          'Please check your input. Password must be at least 6 characters long, postal code must be 5 characters long.',
+          'Please check your input. Password must be at least 6 character slong, postal code must be 5 characters long.',
         ...enteredData,
       },
       function () {
@@ -101,7 +101,7 @@ function getLogin(req, res) {
       password: '',
     };
   }
-  
+
   res.render('customer/auth/login', { inputData: sessionData });
 }
 
@@ -116,7 +116,8 @@ async function login(req, res, next) {
   }
 
   const sessionErrorData = {
-    errorMessage: 'Invalid credentials - please double-check your email and password!',
+    errorMessage:
+      'Invalid credentials - please double-check your email and password!',
     email: user.email,
     password: user.password,
   };
