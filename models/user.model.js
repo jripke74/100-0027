@@ -15,13 +15,13 @@ class User {
     };
   }
 
-  static async findById(userId) {
+  static findById(userId) {
     const uid = new mongodb.ObjectId(userId);
 
     return db
       .getDb()
       .collection('users')
-      .findOne({ _id: uid }, { projection: { password: 0 }});
+      .findOne({ _id: uid }, { projection: { password: 0 } });
   }
 
   getUserWithSameEmail() {

@@ -76,7 +76,7 @@ async function getOrders(req, res, next) {
   try {
     const orders = await Order.findAll();
     res.render('admin/orders/admin-orders', {
-      orders: getOrders
+      orders: orders
     });
   } catch (error) {
     next(error);
@@ -88,7 +88,7 @@ async function updateOrder(req, res, next) {
   const newStatus = req.body.newStatus;
 
   try {
-    const order = await Order.findById(orderid);
+    const order = await Order.findById(orderId);
 
     order.status = newStatus;
 
@@ -108,5 +108,5 @@ module.exports = {
   updateProduct: updateProduct,
   deleteProduct: deleteProduct,
   getOrders: getOrders,
-  updateOrder: updateOrder,
+  updateOrder: updateOrder
 };

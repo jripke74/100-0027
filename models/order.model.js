@@ -25,8 +25,8 @@ class Order {
       orderDoc.productData,
       orderDoc.userData,
       orderDoc.status,
-      orderDoc.data,
-      orderDoc._id,
+      orderDoc.date,
+      orderDoc._id
     );
   }
 
@@ -54,7 +54,7 @@ class Order {
       .find({ 'userData._id': uid })
       .sort({ _id: -1 })
       .toArray();
-    
+
     return this.transformOrderDocuments(orders);
   }
 
