@@ -1,3 +1,7 @@
+const stripeApiKey = require('../config/config').STRIPE;
+
+const stripe = require('stripe')(stripeApiKey);
+
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
 
@@ -33,10 +37,40 @@ async function addOrder(req, res, next) {
 
   req.session.cart = null;
 
-  res.redirect('/orders');
+  const session = await stripe.checkout.session.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        // TODO: replace this withe the 'price' of the product you want to sell
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Dummy',
+          },
+          unit_amount_decimal: 10.99,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `http://localhost:3000/orders/success`,
+    cancel_url: `hrrp://localhost:3000/orders/failure`,
+  });
+
+  res.redirect(303, session.url);
+}
+
+function getSuccess(req, res) {
+  res.render('customer/orders/success');
+}
+
+function getFailure(req, res) {
+  res.render('customer/orders/failure');
 }
 
 module.exports = {
   addOrder: addOrder,
   getOrders: getOrders,
+  getSuccess: getSuccess,
+  getFailure: getFailure,
 };
